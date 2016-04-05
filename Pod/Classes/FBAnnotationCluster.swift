@@ -9,19 +9,20 @@
 import Foundation
 import MapKit
 
-public class FBAnnotationCluster : NSObject {
+public class FBAnnotationCluster : NSObject, MKAnnotation {
     
-    public var coordinate = CLLocationCoordinate2D(latitude: 39.208407, longitude: -76.799555)
+    public var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     
     public var title:String? = "cluster"
     public var subtitle:String? = nil
     
     public var annotations:[MKAnnotation] = []
     
-}
-
-extension FBAnnotationCluster : MKAnnotation {
+    public override var hash: Int {
+        return "\(self.coordinate.latitude),\(self.coordinate.longitude)".hashValue
+    }
     
-    
-    
+    public override func isEqual(object: AnyObject?) -> Bool {
+        return self.hash == object?.hash
+    }
 }
